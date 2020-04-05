@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+*{
+  margin: 0;
+  padding: 0;
+  outline: 0;
+  box-sizing: border-box; /*Ex.: se obj tem larg=200 e coloca uma margin de 20 de cada lado, 
+  ele não vai para 240, vai manter nos 200 o total, e o obj vai ter a largura de 160*/
+}
+
+p, h1, a{
+  font-family: 'Poppins', sans-serif;
+}
+
+input, button, textarea{
+  font: 600 24px 'Poppins', sans-serif;
+  text-align: center;
+  transition: filter 0.2s;
+}
+input:hover{
+  filter: brightness(95%);
+}
+
+
+
+.button{
+  cursor: pointer;
+  width: 100%;
+  height: 70px;
+  border: 0;
+  border-radius: 8px;
+  color: #FFF;
+  font-weight: 700;
+  margin-top: 16px;
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+  font-size: 18px;
+  line-height: 60px;
+  transition: filter 0.2s;
+}
+
+.button:hover{
+  filter: brightness(80%);
+}
+
+.link{
+  display: flex;
+  align-items: center;
+  margin-top: 4%;
+  color: #41414d;
+  font-size: 18px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: opacity 0.2s;
+}
+
+.link svg{
+  margin-right: 8px;
+}
+
+.link:hover{
+  opacity: 0.8;
+}
