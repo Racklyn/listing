@@ -1,0 +1,68 @@
+.profile-container{
+    width: 100%;
+    height: 100vh;
+    max-height: 100vh; /*Toda a altura da tela*/
+    margin: 0 auto;
+
+    display: flex;
+    flex-direction: column;
+    
+    z-index: 1;
+}
+
+main{
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+    align-items:stretch;
+    margin: 1% 4% 2% 4%;
+    
+}
+main h1{
+    text-align: center;
+    padding-bottom: 2%;
+}
+
+.list{
+    padding: 1%;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-auto-flow: column;
+    grid-gap: 20px;
+    list-style: none;
+    overflow-x: scroll;
+    overflow-y: hidden;
+}
+
+.list li{
+    text-align: center;
+    background: rgb(0, 132, 255);
+    padding: 20px;
+    padding-bottom: 12px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    justify-self: center;
+    height: 200px;
+    width: 300px;
+    color: #2e2e2e;
+}
+.list li h2{
+    color: white;
+    font-size: 24px;
+}
+.list li p{
+    text-align: justify;
+    line-height: 20px;
+    overflow: hidden;
+}
+
+.list li div{
+    display: flex;
+    justify-content: space-between;
+}
+
+.trash{
+    cursor: pointer;
+}

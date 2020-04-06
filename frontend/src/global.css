@@ -6,11 +6,9 @@
   outline: 0;
   box-sizing: border-box; /*Ex.: se obj tem larg=200 e coloca uma margin de 20 de cada lado, 
   ele não vai para 240, vai manter nos 200 o total, e o obj vai ter a largura de 160*/
-}
-
-p, h1, a{
   font-family: 'Poppins', sans-serif;
 }
+
 
 input, button, textarea{
   font: 600 24px 'Poppins', sans-serif;
@@ -21,6 +19,57 @@ input:hover{
   filter: brightness(95%);
 }
 
+
+
+.header{
+  background-color: #455A64;
+  height: 70px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 4% 0 6%;
+  font-size: 18px;
+  color: #B5B5B5;
+  box-shadow: 0 3px 1px rgba(0,0,0,0.6);
+}
+.header img{
+  height: 70px;
+}
+.header div{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.header div span{
+  margin-left: 60px;
+}
+
+.userName{
+  width: 180px;
+}
+
+.logOutLink{
+  cursor: pointer;
+  transition: transform 0.1s;
+}
+.logOutLink:hover{
+  transform: scale(1.3);
+}
+
+
+.header .button{
+  background-color: transparent;
+  border-color: #D8D8D8;
+  border-style: solid;
+  border-width: 2px;
+  margin: 0;
+  height: 45px;
+  width: 65px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
 
 .button{

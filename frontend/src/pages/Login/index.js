@@ -1,8 +1,10 @@
 import React, {useState} from 'react'
-import Modal from 'react-bootstrap/Modal'
-import Button from 'react-bootstrap/Button'
-//import {Link} from 'react-router-dom'
+//import Modal from 'react-bootstrap/Modal'
+//import Button from 'react-bootstrap/Button'
 import {FiLogIn} from 'react-icons/fi'
+import {Link, useHistory} from 'react-router-dom'
+
+import api from '../../services/api'
 
 import './styles.css'
 
@@ -36,6 +38,13 @@ export default function Login(){
                 </Modal.Footer>
             </Modal>  */
 
+    const history = useHistory()
+
+    async function handleLogin(e){
+        e.preventDefault()
+        history.push('/profile')
+    }
+
     return(
         
         <div className="login-container">
@@ -47,7 +56,7 @@ export default function Login(){
             </section>
             <section className="right-container">
                 <h1>LOGIN</h1>
-                <form>
+                <form onSubmit={handleLogin}>
                     <input placeholder='Nome do usuário'/>
                     <input placeholder='Senha'/>
                     <button className="button" type='submit'>ENTRAR</button>
