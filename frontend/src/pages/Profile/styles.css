@@ -65,4 +65,8 @@ main h1{
 
 .trash{
     cursor: pointer;
+    transition: filter 0.2s;
+}
+.trash:hover{
+    filter: opacity(80%);
 }

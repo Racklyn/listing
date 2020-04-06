@@ -6,7 +6,8 @@ import './styles.css'
 
 export default function Profile(){
 
-    const [collections, setCollections] =  useState(["#5BB2C6", "#A35BC6", "#E0618F","#DD9E54","#D3C438"])
+    const [collections, setCollections] =  
+    useState(["#5BB2C6", "#A35BC6", "#E0618F","#DD9E54","#D3C438","#D3C438","#D3C438","#D3C438"])
 
     return(
         <div className="profile-container">
