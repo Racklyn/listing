@@ -112,9 +112,10 @@ input:hover{
 
 .link:hover{
   opacity: 0.8;
+  cursor: pointer;
 }
 
-select, input{
+select, input, textarea{
   color: #6B6B6B;
   border: none;
   border-radius: 8px;
@@ -141,4 +142,105 @@ select, input{
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
+}
+
+.Modal{
+  display: flex;
+  width: 100vw;
+  align-items: center;
+  justify-content: center;
+}
+
+.Modals-Content{
+  background-color: white;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  
+}
+.Modals-Content header{
+  background-color: #4B2164;
+  color: white;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0 3%;
+}
+
+
+.Modals-Content header img{
+  height: 70px;
+}
+
+.Modals-Content main{
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  flex-grow: 1;
+  padding: 3% 12%;
+  background-color: transparent;
+}
+
+.Modals-Content main *{
+  margin-top: 30px;
+}
+.Modals-Content main textarea{
+  min-height: 100px;
+  line-height: 24px;
+  resize: vertical;
+}
+.Modals-Content main .color-content{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #B5B5B5;
+  font-size: 20px;
+}
+.Modals-Content main .color-content *{
+  margin: 0 5%;
+}
+
+.Modals-Content footer{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 12%;
+}
+.Modals-Content footer button{
+  margin-bottom: 20px;
+  height: 50px;
+  width: 40%;
+}
+
+.colorPickerBtn{
+  height: 30px;
+  width: 30px;
+  border-width: 2px ;
+  border-color:  #222;
+  border-radius: 8px;
+}
+
+.cover{
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+}
+.popover{
+  position: absolute;
+  z-index: 2;
+  margin: 0;
+  right: 180px;
+  bottom: 240px;
+  background-color: black;
+  
+  
+}
+.colorPicker{
+  height: 30px;
+  width: 30px;
+  border: none;
+  border-radius: 5px;
+  background-color: gray;
 }

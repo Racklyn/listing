@@ -1,8 +1,11 @@
 import React, {useState} from 'react'
-//import Modal from 'react-bootstrap/Modal'
-//import Button from 'react-bootstrap/Button'
+
 import {FiLogIn} from 'react-icons/fi'
 import {Link, useHistory} from 'react-router-dom'
+import { Modal } from '@material-ui/core';
+
+import ModalContent from '../../ModalsContent'
+
 
 import api from '../../services/api'
 
@@ -10,10 +13,12 @@ import './styles.css'
 
 import logo from '../../assets/logo.png'
 import livroImg from '../../assets/livroImg.png'
+import usersImg from '../../assets/users.png'
+
+
 
 export default function Login(){
 
-    /* PARTE USADA NO MODAL
     const [show, setShow] = useState(false);
 
     function handleClose(e){
@@ -23,20 +28,8 @@ export default function Login(){
         e.preventDefault()
         setShow(true);
     }
-    <Modal className="modal" show={show} onHide={handleClose}>
-                <Modal.Header closeButton>
-                <Modal.Title>Modal heading</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
-                <Modal.Footer>
-                <Button variant="secondary" onClick={handleClose}>
-                    Close
-                </Button>
-                <Button variant="primary" onClick={handleClose}>
-                    Save Changes
-                </Button>
-                </Modal.Footer>
-            </Modal>  */
+
+    
 
     const history = useHistory()
 
@@ -48,7 +41,25 @@ export default function Login(){
     return(
         
         <div className="login-container">
-            
+            <Modal
+                open={show}
+                onClose={handleClose}
+                className="Modal"
+            >
+                <ModalContent
+                    title="CADASTRAR"
+                    logo={usersImg}
+                    btnColor1="#561212"
+                    functionBtn1={handleClose}
+                    btnColor2="#123C4E"
+                    functionBtn2={()=>{alert("OK")}}
+                >
+                    <input placeholder='Nome do usuário'/>
+                    <input placeholder='Email'/>
+                </ModalContent>
+            </Modal>
+
+
             <section className="left-container">
                 <img className="logoImg" src={logo} alt=""/>   
                 <p>Bem vindo ao Listing, o seu aplicativo para te manter organizado.<br/>Faça login para acessar seus registros!</p>
@@ -61,10 +72,10 @@ export default function Login(){
                     <input placeholder='Senha'/>
                     <button className="button" type='submit'>ENTRAR</button>
 
-                    <a className="link" href='#'>
+                    <span className="link" onClick={handleShow} >
                         <FiLogIn size={24} color="black" />
                         Não tenho cadastro
-                    </a>
+                    </span>
                 </form>
             </section>
 
