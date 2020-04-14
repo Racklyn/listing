@@ -21,5 +21,19 @@ module.exports = {
         })
 
         return id
+    },
+
+    async createSession({id,name}){
+        const user = await connection('user')
+            .where('id',id)
+            .select('name')
+            .first() //retorna só 1 elemento, não uma array
+
+        if(!user || user.name!== name){
+            //bad request
+            return false
+        }
+
+        return true
     }
 }

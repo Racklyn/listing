@@ -1,4 +1,6 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
+import {useHistory} from 'react-router-dom'
+import api from '../../services/api'
 import Header from '../../Header'
 import {FaPlus, FaTrashAlt} from 'react-icons/fa'
 //import ColorPicker from 'rc-color-picker';
@@ -16,6 +18,41 @@ import './styles.css'
 
 export default function Profile(){
 
+    const history = useHistory()
+    
+    const userName = localStorage.getItem('userName')
+    const userId = localStorage.getItem('userId')
+
+    const [collections, setCollections] = useState([])
+
+    //contagem de itens em cada uma das coleções
+    const [countItens,setCountItens] = useState([])
+
+    useEffect(()=>{
+        api.get('profile',{
+            headers:{
+                Authorization: userId
+            }
+        }).then(response=>{
+            setCollections(response.data)
+            response.data.map(collection=>{
+                api.get(`collections/list/${collection.id}`)
+                .then(col=>{
+                    setCountItens(
+                        prevState =>{
+                            const list  = prevState.concat(col.data.length)
+                            return list
+                        }
+                    )     
+                }) 
+            })
+        })   
+    },[userId])
+
+
+
+
+    //para abrir tele de criar nova coleção___________________________
     const [show, setShow] = useState(false);
 
 
@@ -26,34 +63,52 @@ export default function Profile(){
         e.preventDefault()
         setShow(true);
     }
+    //________________________________________________________________
 
 
-    const [collections, setCollections] =  
-    useState(["#5BB2C6", "#A35BC6", "#E0618F","#DD9E54","#D3C438","#D3C438","#D3C438","#D3C438"])
+    //(((((((((((((((((  ABRIR COLEÇÃO   )))))))))))))))))
 
-    /*
-    const [display, setDisplay] = useState(false);
-    
-      function handleClick(){
-        setDisplay(!display)
-      };
-    
-      function handleClose(){
-        setDisplay(false)
-      };
+    async function handleCollection(id, title){
+        
+        //e.preventDefault()
+        
+        try{
+
+            localStorage.setItem('collectionId', id)
+            localStorage.setItem('collectionTitle', title)
+
+            history.push('/Collection')
+        }catch(e){
+            alert("FALHA AO ABRIR A COLEÇÃO! \n Tente novamente")
+        }
+    }
+
+    //(((((((((((((((((((((((((())))))))))))))))))))))))))
 
 
-      <button className="colorPickerBtn"  onClick={handleClick }></button>
-                        { display ? <div className="popover">
-                        <div className="cover" onClick={handleClose }/>
-                            <SwatchesPicker className="colorPicker"/>
-                        </div> : null }
-      */
+    //----------------DELETAR COLEÇÃO--------------
+    async function deleteCollection(id){
+        try{
+            await api.delete(`collections/${id}`,{
+                headers:{
+                    Authorization: userId
+                }
+            }) //delentando lista com id e passando id do user
+
+            //a lista de coleções terá o valor dela filtrado o caso com o id que foi apagado
+            setCollections(collections.filter(collections=> collections.id != id))
+        }catch(er){
+            alert("Erro ao deletar coleção, tente novamente.")
+        }
+    }
+    //---------------------------------------------
+
+
     return(
         
         <div className="profile-container">
 
-            <Header userName='Francisco Racklyn'>
+            <Header userName= {userName}>
                 <button onClick={handleShow} className='button' >
                     <FaPlus size={26} color="#D8D8D8" />
                 </button>
@@ -89,17 +144,21 @@ export default function Profile(){
                 
                 <ul className="list">
                     
-                    {collections.map(collection=>(
-                        <li style={{backgroundColor:collection}}>
-                            <h2>Coleção 1</h2>
-                            <p>Essa coleção é sobre alguma coisa não muito importante
-                            Essa coleção é sobre alguma coisa não muito importante
-                            
-                            </p>
-
-                            <div>
-                                <p>15 itens</p>
-                                <FaTrashAlt className="trash" size={22} color="#111" />
+                    {collections.map((collection, index)=>(
+                        <li 
+                            key={collection.id}
+                            style={{backgroundColor:collection.color}}
+                        >
+                            <div onClick={()=>handleCollection(collection.id, collection.title)} className="main-card">
+                                <h2>{collection.title}</h2>
+                                <p>{collection.description}</p>
+                            </div>
+                            <div className="bottom-card">
+                                <p>
+                                    {countItens[index]}
+                                    &nbsp; item(s)
+                                </p>
+                                <FaTrashAlt onClick={()=>deleteCollection(collection.id)} className="trash" size={22} color="#111" />
                             </div>
                         </li>
                     ))}

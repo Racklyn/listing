@@ -188,6 +188,7 @@ select, input, textarea{
   min-height: 100px;
   line-height: 24px;
   resize: vertical;
+  padding: 10px;
 }
 .Modals-Content main .color-content{
   display: flex;

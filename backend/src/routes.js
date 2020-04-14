@@ -5,6 +5,7 @@ const ProfileController =  require('./controllers/ProfileController')
 const UserController =  require('./controllers/UserController')
 const CollectionController =  require('./controllers/CollectionController')
 const ItemController =  require('./controllers/ItemController')
+const SessionController = require('./controllers/SessionController')
 
 
 routes.get('/users', UserController.index)
@@ -23,5 +24,7 @@ routes.post('/collections/list/:collection_id', ItemController.create)
 routes.put('/collections/list/:collection_id/item/:item_id', ItemController.update)
 routes.delete('/collections/list/:collection_id/item/:item_id', ItemController.delete)
 
+
+routes.post('/sessions', SessionController.create)
 
 module.exports = routes;

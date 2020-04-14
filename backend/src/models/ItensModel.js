@@ -4,6 +4,7 @@ module.exports = {
     async getItens(collection_id){
         const resp  = await connection('item')
             .where('collection_id',collection_id)
+            .orderBy('id')
             .select('*')
 
         return resp

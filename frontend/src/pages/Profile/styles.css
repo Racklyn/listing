@@ -36,7 +36,7 @@ main h1{
 
 .list li{
     text-align: center;
-    background: rgb(0, 132, 255);
+    background-color: rgb(0, 132, 255);
     padding: 20px;
     padding-bottom: 12px;
     border-radius: 8px;
@@ -46,10 +46,12 @@ main h1{
     justify-self: center;
     height: 200px;
     width: 300px;
-    color: #2e2e2e;
+    color: white;
+    text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
 }
 .list li h2{
     color: white;
+    text-shadow: 0 0 8px rgba(0, 0, 0, 1);
     font-size: 24px;
 }
 .list li p{
@@ -58,7 +60,19 @@ main h1{
     overflow: hidden;
 }
 
-.list li div{
+.list .main-card{
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    transition: filter 0.2s;
+}
+
+.list .main-card:hover{
+    cursor: default;
+    filter: opacity(80%)
+}
+
+.list .bottom-card{
     display: flex;
     justify-content: space-between;
 }

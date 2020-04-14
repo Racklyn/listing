@@ -18,7 +18,7 @@ import usersImg from '../../assets/users.png'
 
 
 export default function Login(){
-
+    //para Modal------------------------------
     const [show, setShow] = useState(false);
 
     function handleClose(e){
@@ -28,14 +28,28 @@ export default function Login(){
         e.preventDefault()
         setShow(true);
     }
-
+    //----------------------------------------------
     
+
+    const [id, setId] = useState('')
+    const [name, setName] = useState('')
 
     const history = useHistory()
 
     async function handleLogin(e){
         e.preventDefault()
-        history.push('/profile')
+        
+        try{
+            await api.post('sessions',{id, name})
+
+            localStorage.setItem('userName', name)
+            localStorage.setItem('userId', id)
+
+            history.push('/profile')
+        }catch(e){
+            alert("FALHA NO LOGIN! \n Tente novamente")
+        }
+
     }
 
     return(
@@ -68,8 +82,16 @@ export default function Login(){
             <section className="right-container">
                 <h1>LOGIN</h1>
                 <form onSubmit={handleLogin}>
-                    <input placeholder='Nome do usuário'/>
-                    <input placeholder='Senha'/>
+                    <input 
+                        value={name} 
+                        placeholder='Nome do usuário'
+                        onChange={e=>setName(e.target.value)}
+                    />
+                    <input 
+                        value={id} 
+                        placeholder='Senha'
+                        onChange={e=>setId(e.target.value)}
+                    />
                     <button className="button" type='submit'>ENTRAR</button>
 
                     <span className="link" onClick={handleShow} >
