@@ -11,7 +11,8 @@ export default function Header(props){
 
     async function logOut(e){
         e.preventDefault()
-        //aqui vamos apagar os dados do login salvos no localStorage .....
+        //aqui vamos apagar os dados do login salvos no localStorage 
+        localStorage.clear()
 
         history.push('/')
     }

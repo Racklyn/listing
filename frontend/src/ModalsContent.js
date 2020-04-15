@@ -13,18 +13,19 @@ export default function ModalsContent(props){
             <main>
                 {props.children}
             </main>
-            <footer>
+            <form onSubmit={props.functionBtn2}>
                 <button 
                     style={{backgroundColor:props.btnColor1}}
                     className="button"
                     onClick={props.functionBtn1}
+                    type="button"
                 >Voltar</button>
                 <button
                     style={{backgroundColor:props.btnColor2}}
                     className="button"
-                    onClick={props.functionBtn2}
+                    type="submit"
                 >Confirmar</button>
-            </footer>
+            </form>
         </div>
     );
 };

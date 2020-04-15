@@ -24,9 +24,12 @@ export default function Profile(){
     const userId = localStorage.getItem('userId')
 
     const [collections, setCollections] = useState([])
-
     //contagem de itens em cada uma das coleções
     const [countItens,setCountItens] = useState([])
+
+    const [title, setTitle] = useState("")
+    const [description, setDescription] = useState("")
+    const [color, setColor] = useState("#5bb2c6")
 
     useEffect(()=>{
         api.get('profile',{
@@ -68,7 +71,7 @@ export default function Profile(){
 
     //(((((((((((((((((  ABRIR COLEÇÃO   )))))))))))))))))
 
-    async function handleCollection(id, title){
+    async function handleCollection(id, title, color){
         
         //e.preventDefault()
         
@@ -76,6 +79,7 @@ export default function Profile(){
 
             localStorage.setItem('collectionId', id)
             localStorage.setItem('collectionTitle', title)
+            localStorage.setItem('collectionColor', color)
 
             history.push('/Collection')
         }catch(e){
@@ -104,6 +108,27 @@ export default function Profile(){
     //---------------------------------------------
 
 
+    //++++++++++++ ADICIONAR COLEÇÃO +++++++++++++++++++
+    async function addCollection(e){
+        //e.preventDefault()
+        try{
+            await api.post('/collections',{title, description, color},{
+                headers:{
+                    Authorization: userId
+                }
+            })
+
+            handleClose()
+
+
+        }catch(e){
+            alert("ERRO AO CRIAR NOVA COLEÇÃO \n Tente novamente!")
+        }
+    }
+
+
+    //++++++++++++++++++++++++++++++++++++++++++++++++++
+
     return(
         
         <div className="profile-container">
@@ -126,14 +151,27 @@ export default function Profile(){
                     btnColor1="#561212"
                     functionBtn1={handleClose}
                     btnColor2="#123C4E"
-                    functionBtn2={()=>{alert("OK")}}
+                    functionBtn2={addCollection}
                 >
-                    <input placeholder='Nome da coleção'/>
-                    <textarea placeholder='Descrição da coleção'/>
+                    <input 
+                        value={title}
+                        onChange={e=>setTitle(e.target.value)}
+                        placeholder='Nome da coleção'
+                    />
+                    <textarea 
+                        value={description}
+                        onChange={e=>setDescription(e.target.value)}
+                        placeholder='Descrição da coleção'
+                    />
                     <div className="color-content">
                         
                         <p>Cor da coleção</p>
-                        <input className="colorPicker" type="color"/>
+                        <input
+                            className="colorPicker"
+                            type="color"
+                            value={color}
+                            onChange={e=>setColor(e.target.value)}
+                        />
                     </div>
 
                 </ModalContent>
@@ -149,7 +187,7 @@ export default function Profile(){
                             key={collection.id}
                             style={{backgroundColor:collection.color}}
                         >
-                            <div onClick={()=>handleCollection(collection.id, collection.title)} className="main-card">
+                            <div onClick={()=>handleCollection(collection.id, collection.title, collection.color)} className="main-card">
                                 <h2>{collection.title}</h2>
                                 <p>{collection.description}</p>
                             </div>

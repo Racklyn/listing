@@ -201,13 +201,13 @@ select, input, textarea{
   margin: 0 5%;
 }
 
-.Modals-Content footer{
+.Modals-Content form{
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 12%;
 }
-.Modals-Content footer button{
+.Modals-Content form button{
   margin-bottom: 20px;
   height: 50px;
   width: 40%;

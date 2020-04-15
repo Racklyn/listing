@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from 'react'
 import Header from '../../Header'
 import api from '../../services/api'
+import {useHistory} from 'react-router-dom'
 
-import {FaTrashAlt} from 'react-icons/fa'
+import {FaTrashAlt, FaArrowLeft} from 'react-icons/fa'
 
 import './styles.css'
 
@@ -10,6 +11,8 @@ import Checked from '../../assets/checked.png'
 import Unchecked from '../../assets/unchecked.png'
 
 export default function Collection(){
+
+    const history = useHistory()
 
     const prioridades = [
         {
@@ -36,10 +39,14 @@ export default function Collection(){
 
     const [itens, setItens] = useState([])
 
+    const [priority, setPriority] = useState(0)
+    const [newItemText, setNewItemText] = useState("")
+
     const userName = localStorage.getItem('userName')
     const userId = localStorage.getItem('userId')
     const collectionId = localStorage.getItem('collectionId')
     const collectionTitle = localStorage.getItem('collectionTitle')
+    const collectionColor = localStorage.getItem('collectionColor')
 
     useEffect(()=>{
 
@@ -48,7 +55,19 @@ export default function Collection(){
             setItens(response.data)
         })
 
+        //const list = document.getElementById("list")
+        //list.scrollTop = list.scrollHeight
     })
+
+
+    async function voltar(){
+        localStorage.removeItem('collectionId')
+        localStorage.removeItem('collectionTitle')
+        localStorage.removeItem('collectionColor')
+
+        history.push('/profile')
+    }
+
 
     //============ alterar estado (MARKED)=========
 
@@ -77,14 +96,45 @@ export default function Collection(){
 
     //---------------------------------
 
+    //+++++++++++++++++ Adicionar item ++++++++++++++++++++
+    async function addItem(e){
+        e.preventDefault()
+        const marked = false
+        const text = newItemText
+        
+        try{
+            await api.post(`/collections/list/${collectionId}`,{
+                text,
+                priority,
+                marked
+            })   
+
+            //setPriority(0)
+            setNewItemText("")
+            
+        }catch(e){
+            alert('NÃO FOI POSSÍVEL ADICIONAR O ITEM \n Tente novamente!')
+        }
+        
+    }
+    //+++++++++++++++++++++++++++++++++++++++++++++++++++++
+
     return(
         <div className="collection-container">
             <Header userName={userName}></Header>
 
             <main>
                 <div className="content">
-                    <h1>{collectionTitle!=null?collectionTitle:'[nome da coleção]'}</h1>
-                    <ul className="itens-list">
+                    <div  style={{backgroundColor: collectionColor}} className= "title-collection" >
+                        <span onClick={voltar} className="arrow-back" >
+                            <FaArrowLeft size={28} color="white" />
+                            <p>Voltar</p>
+                        </span>
+                        <h1>
+                            {collectionTitle!=null?collectionTitle:'[nome da coleção]'}
+                        </h1>
+                    </div>
+                    <ul className="itens-list" id="list">
 
                         {itens.map(item=>(
                             <li>
@@ -101,20 +151,25 @@ export default function Collection(){
 
             
                     </ul>
-                    <form>
-                        <input placeholder='Novo item' />
-                        <select>
-                            <option>sem priopidade</option>
-                            <option>baixa</option>
-                            <option>normal</option>
-                            <option>alta</option>
-                            <option>importante</option>
+                    <form onSubmit={addItem}>
+                        <input 
+                            placeholder='Novo item'
+                            value={newItemText}
+                            onChange={(e)=>setNewItemText(e.target.value)}
+                        />
+                        <select value={priority} onChange={(e)=>setPriority(e.target.value)}>
+                            <option value={0}>sem prioridade</option>
+                            <option value={1}>baixa</option>
+                            <option value={2}>normal</option>
+                            <option value={3}>alta</option>
+                            <option value={4}>importante</option>
                         </select>
-                        <button className="button">ADD</button>
+                        <button className="button" type='submit'>ADD</button>
                     </form>
                 </div>
                 
             </main>
         </div>
     )
+
 }

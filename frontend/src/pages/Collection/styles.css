@@ -34,9 +34,34 @@ main{
     z-index: 1;
 }
 
-.content h1{
-    background-color: #5BB2C6;
-    padding-bottom: 5px;
+.content .title-collection{
+    background-color: #5bb2c6;
+    padding: 5px;
+    display: flex;
+    justify-content: center ;
+    align-items: center;
+}
+
+.content .arrow-back{
+    position: absolute;
+    left: 10%;
+    display: flex;
+    transition: filter 0.2s;
+}
+.content .arrow-back:hover{
+    cursor: pointer;
+    filter: opacity(75%);
+    transform: scale(1.05);
+}
+
+.content .arrow-back p{
+    margin-left: 15px;
+    color: #222;
+}
+
+.title-collection h1{
+    margin: 0;
+    padding: 0;
 }
 
 .itens-list{
