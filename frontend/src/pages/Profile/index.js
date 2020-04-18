@@ -36,18 +36,18 @@ export default function Profile(){
             headers:{
                 Authorization: userId
             }
-        }).then(response=>{
+        }).then(async response=>{
             setCollections(response.data)
-            response.data.map(collection=>{
-                api.get(`collections/list/${collection.id}`)
-                .then(col=>{
-                    setCountItens(
-                        prevState =>{
-                            const list  = prevState.concat(col.data.length)
-                            return list
-                        }
-                    )     
-                }) 
+            await response.data.map(async collection=>{
+                const col = await api.get(`collections/list/${collection.id}`)
+                
+                setCountItens(
+                    prevState =>{
+                        const list  = prevState.concat(col.data.length)
+                        return list
+                    }
+                )     
+
             })
         })   
     },[userId])

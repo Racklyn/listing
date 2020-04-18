@@ -24,15 +24,31 @@ module.exports = {
     },
 
     async createSession({id,name}){
-        const user = await connection('user')
-            .where('id',id)
-            .select('name')
-            .first() //retorna só 1 elemento, não uma array
 
-        if(!user || user.name!== name){
-            //bad request
+        //try{
+            //connection.destroy()
+            //await connection.transaction(async trx=>{
+                const user = await connection('user') 
+                    .where('id',id)
+                    .select('name')
+                    .first() //retorna só 1 elemento, não uma array
+                //.transacting(trx)
+
+                //trx.commit()
+                if(!user || user.name!== name){
+                    //bad request
+                    return false
+                }
+            /*}) 
+            
+            
+        }catch(e){
+            
+            console.log("ERRO: "+e)
             return false
-        }
+        }*/
+       
+        
 
         return true
     }

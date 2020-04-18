@@ -4,11 +4,23 @@ module.exports = {
     
     //retornando coleções apenas do usuário específico
     async getCollections(user_id){
+        let collections = []
+        try{
+            //connection.destroy()
+            await connection.transaction(async trx=>{
+                collections = await connection('collection')
+                .where('user_id',user_id)
+                .select('*')
+                .transacting(trx)
 
-        const collections = await connection('collection')
-            .where('user_id',user_id)
-            .select('*')
+                trx.commit()
+            })
 
+        }catch(e){
+            
+            console.log("ERRO on Collections: "+e)
+        }
+        
         return collections
     },
 

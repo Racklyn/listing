@@ -1,7 +1,6 @@
 // Update with your config settings.
 
 module.exports = {
-
   development: {
     client: 'postgresql',
     connection: {
@@ -9,6 +8,10 @@ module.exports = {
       user:'postgres',
       password:'postgres',
       database:'listingBD'
+    },
+    pool: {
+      min: 2,
+      max: 100,
     },
     migrations:{
       directory: './src/database/migrations'
@@ -24,7 +27,7 @@ module.exports = {
     },
     pool: {
       min: 2,
-      max: 10
+      max: 100,
     },
     migrations: {
       tableName: 'knex_migrations'

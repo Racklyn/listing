@@ -34,6 +34,10 @@ export default function Login(){
     const [id, setId] = useState('')
     const [name, setName] = useState('')
 
+    //dados do novo usuário
+    const [newName, setNewName] = useState('')
+    const [email, setEmail] = useState('')
+
     const history = useHistory()
 
     async function handleLogin(e){
@@ -52,6 +56,26 @@ export default function Login(){
 
     }
 
+    //+++++++++++++++ ADD USER ++++++++++++++++++++
+
+    async function addUser(e){
+        e.preventDefault()
+        try{
+            const name = newName
+            const response = await api.post('/users/new',{name, email})
+
+            alert(`Seu ID: ${response.data.id}`)
+
+            setId(response.data.id)
+            setName(newName)
+
+            handleClose()
+        }catch(e){
+            alert("ERRO AO CRIAR USUÁRIO \n Tente novamente!")
+        }
+
+    }
+
     return(
         
         <div className="login-container">
@@ -66,10 +90,10 @@ export default function Login(){
                     btnColor1="#561212"
                     functionBtn1={handleClose}
                     btnColor2="#123C4E"
-                    functionBtn2={()=>{alert("OK")}}
+                    functionBtn2={addUser}
                 >
-                    <input placeholder='Nome do usuário'/>
-                    <input placeholder='Email'/>
+                    <input value={newName} onChange={(e)=>setNewName(e.target.value)} placeholder='Nome do usuário'/>
+                    <input value={email} onChange={(e)=>setEmail(e.target.value)} placeholder='Email'/>
                 </ModalContent>
             </Modal>
 
